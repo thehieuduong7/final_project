@@ -1,5 +1,7 @@
-import 'package:final_project/views/cart_page.dart';
-import 'package:final_project/views/profile_page.dart';
+import 'cart_page.dart';
+import 'profile_page.dart';
+import 'product_page.dart';
+
 import 'package:flutter/material.dart';
 
 class CustomerPage extends StatefulWidget {
@@ -41,7 +43,7 @@ const _navBarItems = [
   NavigationDestination(
     icon: Icon(Icons.bookmark_border_outlined),
     selectedIcon: Icon(Icons.bookmark_rounded),
-    label: 'Bookmarks',
+    label: 'Product',
   ),
   NavigationDestination(
     icon: Icon(Icons.shopping_bag_outlined),
@@ -58,4 +60,5 @@ const _navBarItems = [
 const mapToPage = {
   'Profile': ProfilePage(),
   'Cart': CartPage(),
+  'Product': ProductPage(),
 };
