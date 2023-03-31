@@ -2,9 +2,11 @@ import 'package:final_project/components/layouts/app_theme.dart';
 import 'package:final_project/components/products/product_card.dart';
 import 'package:final_project/components/products/product_list.dart';
 import 'package:final_project/models/product.dart';
+import 'package:final_project/provider/product_provider.dart';
 
 import 'package:flutter/material.dart';
 import 'package:easy_debounce/easy_debounce.dart';
+import 'package:provider/provider.dart';
 
 class ProductPage extends StatefulWidget {
   const ProductPage({Key? key}) : super(key: key);
@@ -81,6 +83,7 @@ class _ProductPageState extends State<ProductPage> {
             'https://images.unsplash.com/photo-1515955656352-a1fa3ffcd111?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
         price: 144.5),
   ];
+  bool isGridView = true;
 
   @override
   void initState() {
@@ -90,6 +93,8 @@ class _ProductPageState extends State<ProductPage> {
 
   @override
   Widget build(BuildContext context) {
+    Provider.of<ProductProvider>(context, listen: false).getProduct();
+
     return Scaffold(
       key: scaffoldKey,
       backgroundColor: Colors.white,
@@ -214,12 +219,21 @@ class _ProductPageState extends State<ProductPage> {
             padding: EdgeInsetsDirectional.fromSTEB(16, 16, 16, 0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
-              children: [IconButton(onPressed: () {}, icon: Icon(Icons.list))],
+              children: [
+                IconButton(
+                    onPressed: () {
+                      setState(() {
+                        isGridView = !isGridView;
+                      });
+                    },
+                    icon: !isGridView ? Icon(Icons.grid_on) : Icon(Icons.list))
+              ],
             ),
           ),
           Expanded(
             child: ProductList(
               products: isSearchStarted ? searchedProducts : products,
+              isGridView: isGridView,
             ),
           ),
         ],

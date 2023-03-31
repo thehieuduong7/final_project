@@ -1,4 +1,5 @@
 import 'package:final_project/provider/auth_provider.dart';
+import 'package:final_project/provider/product_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -19,6 +20,9 @@ class MyApp extends StatelessWidget {
         providers: [
           ChangeNotifierProvider(
             create: (ctx) => AuthProvider(),
+          ),
+          ChangeNotifierProvider(
+            create: (ctx) => ProductProvider(),
           ),
         ],
         child: MaterialApp(

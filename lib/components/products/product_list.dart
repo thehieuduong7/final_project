@@ -6,8 +6,9 @@ import '../../models/product.dart';
 
 class ProductList extends StatefulWidget {
   List<Product> products;
-
-  ProductList({Key? key, required this.products}) : super(key: key);
+  bool isGridView;
+  ProductList({Key? key, required this.products, this.isGridView = true})
+      : super(key: key);
 
   @override
   _ProductListState createState() => _ProductListState();
@@ -16,8 +17,7 @@ class ProductList extends StatefulWidget {
 class _ProductListState extends State<ProductList> {
   @override
   Widget build(BuildContext context) {
-    bool isGridView = true;
-    if (isGridView) {
+    if (widget.isGridView) {
       return LayoutBuilder(builder: (context, constraints) {
         return GridView.builder(
           itemCount: widget.products.length,
