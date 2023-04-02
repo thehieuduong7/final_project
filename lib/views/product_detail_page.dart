@@ -49,14 +49,20 @@ class _ProductDetailPageState extends State<ProductDetailPage>
                 fontWeight: FontWeight.w500,
               ),
         ),
+        // ignore: prefer_const_literals_to_create_immutables
         actions: [
+          // ignore: prefer_const_constructors
           Padding(
             padding: EdgeInsetsDirectional.fromSTEB(0, 8, 24, 0),
+            // ignore: prefer_const_constructors
             child: Badge(
-              child: Text(
-                "hello",
-                style: AppTheme.of(context).bodyText1,
+              child: Icon(
+                Icons.shopping_cart,
+                size: 40,
+                color: Colors.green,
               ),
+
+              //icon style
             ),
           )
         ],

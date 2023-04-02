@@ -9,17 +9,23 @@ class AuthProvider extends ChangeNotifier {
   // Add authentication functions here
 
   Future<void> signIn(String email, String password) async {
-    // try {
-    //   if (email == 'admin') {
-    //     _user = User("admin", "123");
-    //   } else {
-    //     _user = null;
-    //     errorMessage = "login fail";
-    //   }
-    // } on Exception catch (_) {
-    //   _user = null;
-    //   errorMessage = "login fail";
-    // }
+    try {
+      if (email == 'admin') {
+        _user = User(
+            name: "admin",
+            age: 12,
+            gender: 1,
+            address: "sai gon",
+            phone: "102030",
+            avatar: null);
+      } else {
+        _user = null;
+        errorMessage = "login fail";
+      }
+    } on Exception catch (_) {
+      _user = null;
+      errorMessage = "login fail";
+    }
     try {
       // var response = http.post()
     } catch (e) {}
