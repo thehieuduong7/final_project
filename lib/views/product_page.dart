@@ -1,4 +1,5 @@
 import 'package:final_project/components/layouts/app_theme.dart';
+import 'package:final_project/components/products/nav_product_list.dart';
 import 'package:final_project/components/products/product_card.dart';
 import 'package:final_project/components/products/product_list.dart';
 import 'package:final_project/models/product.dart';
@@ -98,6 +99,7 @@ class _ProductPageState extends State<ProductPage> {
     return Scaffold(
       key: scaffoldKey,
       backgroundColor: Colors.white,
+      drawer: const NavProductList(),
       appBar: AppBar(
         title: Text(
           'Awesome Store',
