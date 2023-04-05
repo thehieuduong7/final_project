@@ -101,6 +101,7 @@ class _ProductPageState extends State<ProductPage> {
       backgroundColor: Colors.white,
       drawer: const NavProductList(),
       appBar: AppBar(
+        iconTheme: IconThemeData(color: Colors.black),
         title: Text(
           'Awesome Store',
           style: AppTheme.of(context).title1,

@@ -1,4 +1,38 @@
+import 'package:final_project/components/products/expansionpanel_filter.dart';
 import 'package:flutter/material.dart';
+
+var optionFilter = [
+  {
+    "tilte": "Category",
+    "body": Expanded(
+        child: ListView(
+            shrinkWrap: true,
+            children: ["Snaker", "Sandal"]
+                .map((e) => ListTile(
+                      title: Text(e),
+                      trailing: Switch(
+                        value: true,
+                        onChanged: (value) {},
+                      ),
+                    ))
+                .toList())),
+  },
+  {
+    "tilte": "Brand",
+    "body": Expanded(
+        child: ListView(
+            shrinkWrap: true,
+            children: ["Nike", "Adidas", "Reebook"]
+                .map((e) => ListTile(
+                      title: Text(e),
+                      trailing: Switch(
+                        value: true,
+                        onChanged: (value) {},
+                      ),
+                    ))
+                .toList())),
+  }
+];
 
 class NavProductList extends StatefulWidget {
   const NavProductList({Key? key}) : super(key: key);
@@ -34,17 +68,9 @@ class _NavProductListState extends State<NavProductList> {
                       'https://oflutter.com/wp-content/uploads/2021/02/profile-bg3.jpg')),
             ),
           ),
-          // Expanded(
-          //     child: ListView.builder(
-          //         scrollDirection: Axis.vertical,
-          //         shrinkWrap: true,
-          //         itemCount: 20,
-          //         itemBuilder: (BuildContext context, int index) {
-          //           return CheckboxListTile(
-          //               value: true,
-          //               title: Text(index.toString()),
-          //               onChanged: (onChanged) {});
-          //         }))
+          ExpansionpanelFilter(
+            steps: convertToStep(optionFilter),
+          )
         ],
       ),
     );
