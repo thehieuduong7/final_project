@@ -1,3 +1,5 @@
+import 'package:final_project/views/home/home_screen.dart';
+
 import 'cart_page.dart';
 import 'profile_page.dart';
 import 'product_page.dart';
@@ -61,4 +63,5 @@ const mapToPage = {
   'Profile': ProfilePage(),
   'Cart': CartPage(),
   'Product': ProductPage(),
+  'Home': HomePage()
 };
