@@ -3,6 +3,21 @@ import 'package:flutter/material.dart';
 
 var optionFilter = [
   {
+    "tilte": "Gender",
+    "body": Expanded(
+        child: ListView(
+            shrinkWrap: true,
+            children: ["Male", "Female"]
+                .map((e) => ListTile(
+              title: Text(e),
+              trailing: Switch(
+                value: true,
+                onChanged: (value) {},
+              ),
+            ))
+                .toList())),
+  },
+  {
     "tilte": "Category",
     "body": Expanded(
         child: ListView(
@@ -31,6 +46,36 @@ var optionFilter = [
                       ),
                     ))
                 .toList())),
+  },
+  {
+    "tilte": "Color",
+    "body": Expanded(
+        child: ListView(
+            shrinkWrap: true,
+            children: ["Red", "Blue", "Black", "White", "Yellow", "Gray"]
+                .map((e) => ListTile(
+              title: Text(e),
+              trailing: Switch(
+                value: true,
+                onChanged: (value) {},
+              ),
+            ))
+                .toList())),
+  },
+  {
+    "tilte": "Size",
+    "body": Expanded(
+        child: ListView(
+            shrinkWrap: true,
+            children: ["38", "39", "40", "41", "42", "43"]
+                .map((e) => ListTile(
+              title: Text(e),
+              trailing: Switch(
+                value: true,
+                onChanged: (value) {},
+              ),
+            ))
+                .toList())),
   }
 ];
 
@@ -47,27 +92,6 @@ class _NavProductListState extends State<NavProductList> {
     return Drawer(
       child: ListView(
         children: <Widget>[
-          UserAccountsDrawerHeader(
-            accountName: Text('Oflutter.com'),
-            accountEmail: Text('example@gmail.com'),
-            currentAccountPicture: CircleAvatar(
-              child: ClipOval(
-                child: Image.network(
-                  'https://oflutter.com/wp-content/uploads/2021/02/girl-profile.png',
-                  fit: BoxFit.cover,
-                  width: 90,
-                  height: 90,
-                ),
-              ),
-            ),
-            decoration: BoxDecoration(
-              color: Colors.blue,
-              image: DecorationImage(
-                  fit: BoxFit.fill,
-                  image: NetworkImage(
-                      'https://oflutter.com/wp-content/uploads/2021/02/profile-bg3.jpg')),
-            ),
-          ),
           ExpansionpanelFilter(
             steps: convertToStep(optionFilter),
           )
