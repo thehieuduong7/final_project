@@ -1,10 +1,10 @@
 import 'package:animations/animations.dart';
-import 'package:final_project/models/product.dart';
+import 'package:final_project/models/product_model.dart';
 import 'package:final_project/views/product_detail_page.dart';
 import 'package:flutter/material.dart';
 
 class ProductCard extends StatefulWidget {
-  Product product;
+  ProductModel product;
   ProductCard({Key? key, required this.product}) : super(key: key);
 
   @override
@@ -22,7 +22,7 @@ class _ProductCardState extends State<ProductCard> {
         transitionType: _transitionType,
         openBuilder: (BuildContext _, VoidCallback openContainer) {
           return ProductDetailPage(
-            product: widget.product,
+            product: widget.product!,
           );
         },
         closedShape: const RoundedRectangleBorder(),
@@ -58,7 +58,7 @@ class _ProductCardState extends State<ProductCard> {
                             topRight: Radius.circular(8),
                           ),
                           child: Image.network(
-                            widget.product.image,
+                            widget.product.product_image![0],
                             // "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSBS1MLfI1dWZzKwMtdDBe72rDXwZTN34rpDSU1p1ncPw&s",
                             width: 100,
                             height: 100,
@@ -75,7 +75,8 @@ class _ProductCardState extends State<ProductCard> {
                       children: [
                         Padding(
                             padding: EdgeInsetsDirectional.fromSTEB(8, 4, 0, 0),
-                            child: Text(widget.product.name)),
+                            child: Text('\$${widget.product!.name}'),
+                        )
                       ],
                     ),
                   ),
@@ -86,7 +87,7 @@ class _ProductCardState extends State<ProductCard> {
                       children: [
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(8, 4, 0, 0),
-                          child: Text('\$${widget.product.price}'),
+                          child: Text('\$${widget.product!.price}'),
                         ),
                       ],
                     ),

@@ -2,12 +2,12 @@ import 'package:final_project/components/layouts/app_theme.dart';
 import 'package:final_project/components/products/count_controller.dart';
 import 'package:flutter/material.dart';
 
-import '../models/product.dart';
+import '../models/product_model.dart';
 
 class ProductDetailPage extends StatefulWidget {
   const ProductDetailPage({Key? key, required this.product}) : super(key: key);
 
-  final Product product;
+  final ProductModel product;
 
   @override
   _ProductDetailPageState createState() => _ProductDetailPageState();
@@ -87,7 +87,7 @@ class _ProductDetailPageState extends State<ProductDetailPage>
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(12),
                         child: Image.network(
-                          widget.product.image,
+                          widget.product.product_image![0],
                           width: double.infinity,
                           height: 300,
                           fit: BoxFit.cover,
