@@ -17,6 +17,7 @@ class _ProductDetailPageState extends State<ProductDetailPage>
     with TickerProviderStateMixin {
   final scaffoldKey = GlobalKey<ScaffoldState>();
   int? countControllerValue;
+  String selectedValue = '36';
 
   @override
   void initState() {
@@ -61,7 +62,6 @@ class _ProductDetailPageState extends State<ProductDetailPage>
                 size: 40,
                 color: Colors.green,
               ),
-
               //icon style
             ),
           )
@@ -98,14 +98,14 @@ class _ProductDetailPageState extends State<ProductDetailPage>
                   Padding(
                     padding: EdgeInsetsDirectional.fromSTEB(16, 0, 16, 0),
                     child: Text(
-                      'Detailed Product',
+                      '${widget.product.name}',
                       style: AppTheme.of(context).title1,
                     ),
                   ),
                   Padding(
                     padding: EdgeInsetsDirectional.fromSTEB(16, 4, 0, 0),
                     child: Text(
-                      '\$${widget.product.price}',
+                      'Giá: ${widget.product.price}đ',
                       textAlign: TextAlign.start,
                       style: AppTheme.of(context).subtitle1,
                     ),
@@ -113,7 +113,126 @@ class _ProductDetailPageState extends State<ProductDetailPage>
                   Padding(
                     padding: EdgeInsetsDirectional.fromSTEB(16, 8, 16, 8),
                     child: Text(
-                      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do.',
+                      'Mô tả: ${widget.product.description}',
+                      style: AppTheme.of(context).bodyText2,
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(16, 8, 16, 8),
+                    child: Text(
+                      'Hãng: ${widget.product.brand}',
+                      style: AppTheme.of(context).bodyText2,
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(16, 8, 16, 8),
+                    child: Text(
+                      'Màu sắc: ${widget.product.color}',
+                      style: AppTheme.of(context).bodyText2,
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(16, 8, 16, 8),
+                    child: Text(
+                      'Kích thước:',
+                      style: AppTheme.of(context).bodyText2,
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(16, 8, 16, 8),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: ListTile(
+                            title: Text('36'),
+                            leading: Radio(
+                              value: "36",
+                              groupValue: selectedValue,
+                              onChanged: (value) {
+                                setState(() {
+                                  selectedValue = value.toString();
+                                });
+                              },
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          child: ListTile(
+                            title: Text('37'),
+                            leading: Radio(
+                              value: "37",
+                              groupValue: selectedValue,
+                              onChanged: (value) {
+                                setState(() {
+                                  selectedValue = value.toString();
+                                });
+                              },
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          child: ListTile(
+                            title: Text('38'),
+                            leading: Radio(
+                              value: "38",
+                              groupValue: selectedValue,
+                              onChanged: (value) {
+                                setState(() {
+                                  selectedValue = value.toString();
+                                });
+                              },
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          child: ListTile(
+                            title: Text('39'),
+                            leading: Radio(
+                              value: "39",
+                              groupValue: selectedValue,
+                              onChanged: (value) {
+                                setState(() {
+                                  selectedValue = value.toString();
+                                });
+                              },
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          child: ListTile(
+                            title: Text('40'),
+                            leading: Radio(
+                              value: "40",
+                              groupValue: selectedValue,
+                              onChanged: (value) {
+                                setState(() {
+                                  selectedValue = value.toString();
+                                });
+                              },
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          child: ListTile(
+                            title: Text('41'),
+                            leading: Radio(
+                              value: "41",
+                              groupValue: selectedValue,
+                              onChanged: (value) {
+                                setState(() {
+                                  selectedValue = value.toString();
+                                });
+                              },
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(16, 8, 16, 8),
+                    child: Text(
+                      widget.product.gender == 1? "Giới tính: Nam": "Giới tính: Nữ",
                       style: AppTheme.of(context).bodyText2,
                     ),
                   ),
