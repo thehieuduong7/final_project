@@ -1,7 +1,9 @@
 import 'package:final_project/components/products/product_list.dart';
 import 'package:final_project/models/product.dart';
+import 'package:final_project/views/home/components/special_offers.dart';
 import 'package:flutter/material.dart';
 
+import '../../../components/products/product_card.dart';
 import '../../../size_config.dart';
 import 'section_title.dart';
 
@@ -52,15 +54,86 @@ class PopularProducts extends StatelessWidget {
         SingleChildScrollView(
           scrollDirection: Axis.horizontal,
           child: Row(
-            children: [
-              // ProductList(
-              //   products: products,
-              //   isGridView: true,
-              // ),
-            ],
-          ),
+              children: products
+                  .map((e) => // Some height
+                      SpecialProductCard(
+                        product: e,
+                        press: () => {},
+                      ))
+                  .toList()),
         )
       ],
+    );
+  }
+}
+
+class SpecialProductCard extends StatelessWidget {
+  const SpecialProductCard({
+    Key? key,
+    required this.product,
+    required this.press,
+  }) : super(key: key);
+
+  final Product product;
+  final GestureTapCallback press;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.only(left: getProportionateScreenWidth(20)),
+      child: GestureDetector(
+        onTap: press,
+        child: SizedBox(
+          width: getProportionateScreenWidth(150),
+          height: getProportionateScreenWidth(150),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(20),
+            child: Stack(
+              children: [
+                Image.network(
+                  product.image,
+                  width: 150,
+                  height: 150,
+                  fit: BoxFit.cover,
+                ),
+                Container(
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: [
+                        Color(0xFF343434).withOpacity(0.4),
+                        Color(0xFF343434).withOpacity(0.15),
+                      ],
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: getProportionateScreenWidth(15.0),
+                    vertical: getProportionateScreenWidth(10),
+                  ),
+                  child: Text.rich(
+                    TextSpan(
+                      style: TextStyle(color: Colors.white),
+                      children: [
+                        TextSpan(
+                          text: "${product.name} \n",
+                          style: TextStyle(
+                            fontSize: getProportionateScreenWidth(18),
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        TextSpan(text: "${product.price} đồng")
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
     );
   }
 }

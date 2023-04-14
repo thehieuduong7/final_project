@@ -59,7 +59,6 @@ class _ProductCardState extends State<ProductCard> {
                           ),
                           child: Image.network(
                             widget.product.image,
-                            // "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSBS1MLfI1dWZzKwMtdDBe72rDXwZTN34rpDSU1p1ncPw&s",
                             width: 100,
                             height: 100,
                             fit: BoxFit.cover,

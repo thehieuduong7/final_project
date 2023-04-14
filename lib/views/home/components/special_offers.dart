@@ -1,3 +1,4 @@
+import 'package:final_project/models/brand.dart';
 import 'package:flutter/material.dart';
 
 import '../../../size_config.dart';
@@ -10,6 +11,11 @@ class SpecialOffers extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    List<Brand> brands = [
+      Brand(name: "Adidas"),
+      Brand(name: "NIKE"),
+      Brand(name: "Vans"),
+    ];
     return Column(
       children: [
         Padding(
@@ -24,22 +30,12 @@ class SpecialOffers extends StatelessWidget {
         SingleChildScrollView(
           scrollDirection: Axis.horizontal,
           child: Row(
-            children: [
-              SpecialOfferCard(
-                image: "assets/images/Image Banner 2.png",
-                category: "Smartphone",
-                numOfBrands: 18,
-                press: () {},
-              ),
-              SpecialOfferCard(
-                image: "assets/images/Image Banner 3.png",
-                category: "Fashion",
-                numOfBrands: 24,
-                press: () {},
-              ),
-              SizedBox(width: getProportionateScreenWidth(20)),
-            ],
-          ),
+              children: brands
+                  .map((e) => SpecialOfferCard(
+                      category: e.name,
+                      image: "assets/images/Image Banner 2.png",
+                      press: () => {}))
+                  .toList()),
         ),
       ],
     );
@@ -51,12 +47,12 @@ class SpecialOfferCard extends StatelessWidget {
     Key? key,
     required this.category,
     required this.image,
-    required this.numOfBrands,
+    // required this.numOfBrands,
     required this.press,
   }) : super(key: key);
 
   final String category, image;
-  final int numOfBrands;
+  // final int numOfBrands;
   final GestureTapCallback press;
 
   @override
@@ -104,7 +100,7 @@ class SpecialOfferCard extends StatelessWidget {
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        TextSpan(text: "$numOfBrands Brands")
+                        // TextSpan(text: "$numOfBrands Brands")
                       ],
                     ),
                   ),
