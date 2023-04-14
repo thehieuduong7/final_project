@@ -29,7 +29,7 @@ class AuthProvider extends ChangeNotifier {
   }
 
   Future<Account> loginUser(String email, String password) async {
-    final url = Uri.parse('http://localhost:8080/login/');
+    final url = Uri.parse('http://192.168.1.13:8080/login/');
     final response = await http.post(
       url,
       body: json.encode({

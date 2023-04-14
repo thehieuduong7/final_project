@@ -74,8 +74,8 @@ class _ProductCardState extends State<ProductCard> {
                       mainAxisSize: MainAxisSize.max,
                       children: [
                         Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(8, 4, 0, 0),
-                            child: Text('\$${widget.product!.name}'),
+                          padding: EdgeInsetsDirectional.fromSTEB(8, 4, 0, 0),
+                          child: Text('\$${widget.product!.name}'),
                         )
                       ],
                     ),

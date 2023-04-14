@@ -1,5 +1,6 @@
 import 'package:final_project/provider/auth_provider.dart';
 import 'package:final_project/provider/product_provider.dart';
+import 'package:final_project/size_config.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -39,16 +40,18 @@ class MyApp extends StatelessWidget {
             // is not restarted.
             primarySwatch: Colors.blue,
           ),
-          home: const HomePage(),
+          home: const AuthPage(),
         ));
   }
 }
 
-class HomePage extends StatelessWidget {
-  const HomePage({Key? key}) : super(key: key);
+class AuthPage extends StatelessWidget {
+  const AuthPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
+
     return Consumer<AuthProvider>(builder: (context, authData, _) {
       if (authData.isAuthenticated()) {
         return const CustomerPage();

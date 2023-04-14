@@ -138,101 +138,35 @@ class _ProductDetailPageState extends State<ProductDetailPage>
                       style: AppTheme.of(context).bodyText2,
                     ),
                   ),
-                  Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(16, 8, 16, 8),
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: ListTile(
-                            title: Text('36'),
-                            leading: Radio(
-                              value: "36",
-                              groupValue: selectedValue,
-                              onChanged: (value) {
-                                setState(() {
-                                  selectedValue = value.toString();
-                                });
-                              },
-                            ),
-                          ),
-                        ),
-                        Expanded(
-                          child: ListTile(
-                            title: Text('37'),
-                            leading: Radio(
-                              value: "37",
-                              groupValue: selectedValue,
-                              onChanged: (value) {
-                                setState(() {
-                                  selectedValue = value.toString();
-                                });
-                              },
-                            ),
-                          ),
-                        ),
-                        Expanded(
-                          child: ListTile(
-                            title: Text('38'),
-                            leading: Radio(
-                              value: "38",
-                              groupValue: selectedValue,
-                              onChanged: (value) {
-                                setState(() {
-                                  selectedValue = value.toString();
-                                });
-                              },
-                            ),
-                          ),
-                        ),
-                        Expanded(
-                          child: ListTile(
-                            title: Text('39'),
-                            leading: Radio(
-                              value: "39",
-                              groupValue: selectedValue,
-                              onChanged: (value) {
-                                setState(() {
-                                  selectedValue = value.toString();
-                                });
-                              },
-                            ),
-                          ),
-                        ),
-                        Expanded(
-                          child: ListTile(
-                            title: Text('40'),
-                            leading: Radio(
-                              value: "40",
-                              groupValue: selectedValue,
-                              onChanged: (value) {
-                                setState(() {
-                                  selectedValue = value.toString();
-                                });
-                              },
-                            ),
-                          ),
-                        ),
-                        Expanded(
-                          child: ListTile(
-                            title: Text('41'),
-                            leading: Radio(
-                              value: "41",
-                              groupValue: selectedValue,
-                              onChanged: (value) {
-                                setState(() {
-                                  selectedValue = value.toString();
-                                });
-                              },
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
+                  // Padding(
+                  //   padding: EdgeInsetsDirectional.fromSTEB(16, 8, 16, 8),
+                  //   child: Row(
+                  //     mainAxisSize: MainAxisSize.max,
+                  //     children: ["36", "37", "38", "40"]
+                  //         .map((e) => SizedBox(
+                  //               width: 50,
+                  //               child: ListTile(
+                  //                 title: Text(e),
+                  //                 leading: Radio(
+                  //                   value: e,
+                  //                   groupValue: selectedValue,
+                  //                   onChanged: (value) {
+                  //                     setState(() {
+                  //                       selectedValue = value.toString();
+                  //                     });
+                  //                   },
+                  //                 ),
+                  //               ),
+                  //             ))
+                  //         .toList(),
+                  //   ),
+                  // ),
                   Padding(
                     padding: EdgeInsetsDirectional.fromSTEB(16, 8, 16, 8),
                     child: Text(
-                      widget.product.gender == 1? "Giới tính: Nam": "Giới tính: Nữ",
+                      widget.product.gender == 1
+                          ? "Giới tính: Nam"
+                          : "Giới tính: Nữ",
                       style: AppTheme.of(context).bodyText2,
                     ),
                   ),
