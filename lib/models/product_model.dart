@@ -5,7 +5,7 @@ part 'product_model.g.dart';
 @JsonSerializable()
 class ProductModel {
   String? id;
-  String? name;
+  String name;
   List<String>? product_image;
   int? price;
   int? type;
@@ -20,7 +20,7 @@ class ProductModel {
 
   ProductModel({
     this.id,
-    this.name,
+    required this.name,
     this.product_image,
     this.price,
     this.type,
@@ -39,3 +39,27 @@ class ProductModel {
 
   Map<String, dynamic> toJson() => _$ProductModelToJson(this);
 }
+
+List<ProductModel> demoProducts = [
+  ProductModel(
+      id: "10",
+      name: 'Grown',
+      product_image: [
+        'https://images.unsplash.com/photo-1515955656352-a1fa3ffcd111?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80'
+      ],
+      price: 144),
+  ProductModel(
+      id: "11",
+      name: 'Grown1',
+      product_image: [
+        'https://images.unsplash.com/photo-1515955656352-a1fa3ffcd111?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80'
+      ],
+      price: 144),
+  ProductModel(
+      id: "12",
+      name: 'Grown2',
+      product_image: [
+        'https://images.unsplash.com/photo-1515955656352-a1fa3ffcd111?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80'
+      ],
+      price: 144),
+];

@@ -22,7 +22,7 @@ class _ProductCardState extends State<ProductCard> {
         transitionType: _transitionType,
         openBuilder: (BuildContext _, VoidCallback openContainer) {
           return ProductDetailPage(
-            product: widget.product!,
+            product: widget.product,
           );
         },
         closedShape: const RoundedRectangleBorder(),
@@ -59,7 +59,6 @@ class _ProductCardState extends State<ProductCard> {
                           ),
                           child: Image.network(
                             widget.product.product_image![0],
-                            // "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSBS1MLfI1dWZzKwMtdDBe72rDXwZTN34rpDSU1p1ncPw&s",
                             width: 100,
                             height: 100,
                             fit: BoxFit.cover,
@@ -71,7 +70,7 @@ class _ProductCardState extends State<ProductCard> {
                   Padding(
                     padding: EdgeInsetsDirectional.fromSTEB(0, 4, 0, 0),
                     child: Row(
-                      mainAxisSize: MainAxisSize.max,
+                      mainAxisSize: MainAxisSize.min,
                       children: [
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(8, 4, 0, 0),

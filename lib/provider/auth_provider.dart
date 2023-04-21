@@ -10,6 +10,10 @@ class AuthProvider extends ChangeNotifier {
 
   bool isAuthenticated() => _account != null;
 
+  Account? getAccount() {
+    return _account;
+  }
+
   // Add authentication functions here
 
   Future<void> signIn(String email, String password) async {
@@ -29,7 +33,7 @@ class AuthProvider extends ChangeNotifier {
   }
 
   Future<Account> loginUser(String email, String password) async {
-    final url = Uri.parse('http://192.168.1.13:8080/login/');
+    final url = Uri.parse('http://10.0.2.2:8080/login/');
     final response = await http.post(
       url,
       body: json.encode({
@@ -40,35 +44,12 @@ class AuthProvider extends ChangeNotifier {
     );
     if (response.statusCode == 200) {
       final responseData = json.decode(response.body);
+      _account = Account.fromJson(responseData);
       return Account.fromJson(responseData);
     } else {
       throw Exception('Failed to load response');
     }
   }
-
-  // Future<void> signIn(String email, String password) async {
-  //   try {
-  //     if (email == 'admin') {
-  //       _user = User(
-  //           name: "admin",
-  //           age: 12,
-  //           gender: 1,
-  //           address: "sai gon",
-  //           phone: "102030",
-  //           avatar: null);
-  //     } else {
-  //       _user = null;
-  //       errorMessage = "login fail";
-  //     }
-  //   } on Exception catch (_) {
-  //     _user = null;
-  //     errorMessage = "login fail";
-  //   }
-  //   try {
-  //     // var response = http.post()
-  //   } catch (e) {}
-  //   notifyListeners();
-  // }
 
   Future<void> signOut() async {
     _account = null;

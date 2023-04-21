@@ -25,8 +25,7 @@ class _ProductListState extends State<ProductList> {
   }
 
   Future<List<ProductModel>> fetchProducts() async {
-    final response =
-        await http.get(Uri.parse('http://192.168.1.13:8080/product'));
+    final response = await http.get(Uri.parse('http://10.0.2.2:8080/product'));
     if (response.statusCode == 200) {
       final jsonList = json.decode(response.body)['product'] as List;
       return jsonList.map((json) => ProductModel.fromJson(json)).toList();

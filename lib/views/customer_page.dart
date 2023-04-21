@@ -1,3 +1,4 @@
+import 'package:final_project/views/cart/cart_screen.dart';
 import 'package:final_project/views/home/home_screen.dart';
 
 import 'cart_page.dart';
@@ -61,7 +62,7 @@ const _navBarItems = [
 
 const mapToPage = {
   'Profile': ProfilePage(),
-  'Cart': CartPage(),
+  'Cart': CartScreen(),
   'Product': ProductPage(),
   'Home': HomePage()
 };
