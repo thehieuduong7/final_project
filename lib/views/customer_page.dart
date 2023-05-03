@@ -1,4 +1,5 @@
 import 'package:final_project/views/cart/cart_screen.dart';
+import 'package:final_project/views/history_order_page.dart';
 import 'package:final_project/views/home/home_screen.dart';
 
 import 'cart_page.dart';
@@ -56,6 +57,11 @@ const _navBarItems = [
   NavigationDestination(
     icon: Icon(Icons.person_outline_rounded),
     selectedIcon: Icon(Icons.person_rounded),
+    label: 'History',
+  ),
+  NavigationDestination(
+    icon: Icon(Icons.person_outline_rounded),
+    selectedIcon: Icon(Icons.person_rounded),
     label: 'Profile',
   ),
 ];
@@ -64,5 +70,6 @@ const mapToPage = {
   'Profile': ProfilePage(),
   'Cart': CartScreen(),
   'Product': ProductPage(),
-  'Home': HomePage()
+  'History': HistoryOrderPage(),
+  'Home': HomePage(),
 };
