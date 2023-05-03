@@ -57,7 +57,13 @@ class CartCard extends StatelessWidget {
                       style: Theme.of(context).textTheme.bodyText1),
                 ],
               ),
-            )
+            ),
+            SizedBox(height: 10),
+            Text(
+              "size: ${cart.size}",
+              style: TextStyle(color: Colors.black, fontSize: 16),
+              maxLines: 2,
+            ),
           ],
         )
       ],

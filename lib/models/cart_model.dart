@@ -8,8 +8,9 @@ part 'cart_model.g.dart';
 class CartModel {
   ProductModel? product;
   int? quantity;
+  int? size;
 
-  CartModel({this.product, this.quantity});
+  CartModel({this.product, this.quantity, this.size});
 
   factory CartModel.fromJson(Map<String, dynamic> json) =>
       _$CartModelFromJson(json);
@@ -20,7 +21,7 @@ class CartModel {
 // Demo data for our cart
 
 List<CartModel> demoCarts = [
-  CartModel(product: demoProducts[0], quantity: 2),
-  CartModel(product: demoProducts[1], quantity: 1),
-  CartModel(product: demoProducts[2], quantity: 1),
+  CartModel(product: demoProducts[0], quantity: 2, size: 40),
+  CartModel(product: demoProducts[1], quantity: 1, size: 40),
+  CartModel(product: demoProducts[2], quantity: 1, size: 40),
 ];

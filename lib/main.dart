@@ -1,4 +1,5 @@
 import 'package:final_project/provider/auth_provider.dart';
+import 'package:final_project/provider/cart_provider.dart';
 import 'package:final_project/provider/product_provider.dart';
 import 'package:final_project/size_config.dart';
 import 'package:flutter/material.dart';
@@ -25,6 +26,10 @@ class MyApp extends StatelessWidget {
           ChangeNotifierProvider(
             create: (ctx) => ProductProvider(),
           ),
+          ChangeNotifierProxyProvider<AuthProvider, CartProvider>(
+              create: (_) => CartProvider(null),
+              update: (_, authProvider, cartProvider) =>
+                  CartProvider(authProvider)),
         ],
         child: MaterialApp(
           title: 'Flutter Demo',
