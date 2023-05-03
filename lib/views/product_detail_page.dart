@@ -17,7 +17,7 @@ class _ProductDetailPageState extends State<ProductDetailPage>
     with TickerProviderStateMixin {
   final scaffoldKey = GlobalKey<ScaffoldState>();
   int? countControllerValue;
-  String selectedValue = '36';
+  String? selectedValue = '36';
 
   @override
   void initState() {
@@ -138,29 +138,68 @@ class _ProductDetailPageState extends State<ProductDetailPage>
                       style: AppTheme.of(context).bodyText2,
                     ),
                   ),
-                  // Padding(
-                  //   padding: EdgeInsetsDirectional.fromSTEB(16, 8, 16, 8),
-                  //   child: Row(
-                  //     mainAxisSize: MainAxisSize.max,
-                  //     children: ["36", "37", "38", "40"]
-                  //         .map((e) => SizedBox(
-                  //               width: 50,
-                  //               child: ListTile(
-                  //                 title: Text(e),
-                  //                 leading: Radio(
-                  //                   value: e,
-                  //                   groupValue: selectedValue,
-                  //                   onChanged: (value) {
-                  //                     setState(() {
-                  //                       selectedValue = value.toString();
-                  //                     });
-                  //                   },
-                  //                 ),
-                  //               ),
-                  //             ))
-                  //         .toList(),
-                  //   ),
-                  // ),
+                  Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(16, 8, 16, 8),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Column(
+                          children: [
+                            RadioListTile<String>(
+                              title: Text('36'),
+                              value: '36',
+                              groupValue: selectedValue,
+                              onChanged: (value) {
+                                setState(() {
+                                  selectedValue = value;
+                                });
+                              },
+                            ),
+                            RadioListTile<String>(
+                              title: Text('37'),
+                              value: '37',
+                              groupValue: selectedValue,
+                              onChanged: (value) {
+                                setState(() {
+                                  selectedValue = value;
+                                });
+                              },
+                            ),
+                            RadioListTile<String>(
+                              title: Text('38'),
+                              value: '38',
+                              groupValue: selectedValue,
+                              onChanged: (value) {
+                                setState(() {
+                                  selectedValue = value;
+                                });
+                              },
+                            ),
+                          ],
+                        ),
+                      ],
+                      // child: Row(
+                      //   mainAxisSize: MainAxisSize.max,
+                      //   children: ["36", "37", "38", "40"]
+                      //       .map((e) => SizedBox(
+                      //             width: 50,
+                      //             child: ListTile(
+                      //               title: Text(e),
+                      //               leading: Radio(
+                      //                 value: e,
+                      //                 groupValue: selectedValue,
+                      //                 onChanged: (value) {
+                      //                   setState(() {
+                      //                     selectedValue = value.toString();
+                      //                   });
+                      //                 },
+                      //               ),
+                      //             ),
+                      //           ))
+                      //       .toList(),
+                      // ),
+                    ),
+                  ),
                   Padding(
                     padding: EdgeInsetsDirectional.fromSTEB(16, 8, 16, 8),
                     child: Text(
