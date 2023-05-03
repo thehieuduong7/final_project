@@ -43,9 +43,12 @@ class _BodyState extends State<Body> {
                 key: Key("1"),
                 direction: DismissDirection.endToStart,
                 onDismissed: (direction) {
-                  setState(() {
-                    data!.removeAt(index);
-                  });
+                  CartModel cart = data[index];
+                  Provider.of<CartProvider>(context, listen: false)
+                      .removeFromCart(cart.product?.id ?? '', cart.size ?? 0);
+                  // setState(() {
+                  //   data!.removeAt(index);
+                  // });
                 },
                 background: Container(
                   padding: EdgeInsets.symmetric(horizontal: 20),

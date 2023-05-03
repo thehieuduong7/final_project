@@ -4,6 +4,7 @@ part 'product_model.g.dart';
 
 @JsonSerializable()
 class ProductModel {
+  @JsonKey(name: '_id')
   String? id;
   String name;
   List<String>? product_image;

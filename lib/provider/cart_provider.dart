@@ -12,11 +12,9 @@ class CartProvider extends ChangeNotifier {
 
   CartProvider(this._authProvider);
 
-  bool isLoading = false;
   List<CartModel>? carts;
 
   Future<void> fetchCarts() async {
-    isLoading = true;
     String? _token = _authProvider?.getAccount()?.token;
     final response =
         await http.get(Uri.parse('http://10.0.2.2:8080/cart'), headers: {
@@ -29,7 +27,21 @@ class CartProvider extends ChangeNotifier {
       carts = [];
       throw Exception('Failed to load cart');
     }
-    isLoading = false;
+    notifyListeners();
+  }
+
+  Future<void> removeFromCart(String productId, int size) async {
+    String? _token = _authProvider?.getAccount()?.token;
+    final response = await http.delete(
+        Uri.parse('http://10.0.2.2:8080/cart/$productId/$size'),
+        headers: {
+          'Authorization': 'Bearer $_token',
+        });
+    if (response.statusCode == 200) {
+      await fetchCarts();
+    } else {
+      throw Exception('Failed to load cart');
+    }
     notifyListeners();
   }
 
