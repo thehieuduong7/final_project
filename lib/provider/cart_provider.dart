@@ -55,4 +55,8 @@ class CartProvider extends ChangeNotifier {
     });
     return sum;
   }
+
+  List<CartModel>? getCarts() {
+    return carts;
+  }
 }

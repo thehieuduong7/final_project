@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 
 import '../../../constants.dart';
 import '../../../size_config.dart';
+import '../../order_page.dart';
 
 class CheckoutCard extends StatelessWidget {
   const CheckoutCard({
@@ -89,7 +90,12 @@ class CheckoutCard extends StatelessWidget {
                           primary: Colors.white,
                           backgroundColor: kPrimaryColor,
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => MyView()),
+                          );
+                        },
                         child: Text(
                           "order",
                           style: TextStyle(
