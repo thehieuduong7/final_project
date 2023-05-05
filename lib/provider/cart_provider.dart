@@ -40,7 +40,7 @@ class CartProvider extends ChangeNotifier {
     if (response.statusCode == 200) {
       await fetchCarts();
     } else {
-      throw Exception('Failed to load cart');
+      // throw Exception('Failed to load cart');
     }
     notifyListeners();
   }
