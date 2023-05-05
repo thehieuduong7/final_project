@@ -1,6 +1,7 @@
 import 'package:final_project/models/cart_model.dart';
 import 'dart:convert';
 import 'package:final_project/provider/cart_provider.dart';
+import 'package:final_project/views/customer_page.dart';
 import 'package:final_project/views/product_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -10,12 +11,12 @@ import '../components/products/product_list.dart';
 import '../provider/auth_provider.dart';
 import 'home/home_screen.dart';
 
-class MyView extends StatefulWidget {
+class OrderPage extends StatefulWidget {
   @override
-  _MyViewState createState() => _MyViewState();
+  _OrderPageState createState() => _OrderPageState();
 }
 
-class _MyViewState extends State<MyView> {
+class _OrderPageState extends State<OrderPage> {
   String? _selectedShipId;
   String? _location;
   String? _receiverName;
@@ -28,70 +29,72 @@ class _MyViewState extends State<MyView> {
     _total = Provider.of<CartProvider>(context, listen: false).getTotal();
     cartList = Provider.of<CartProvider>(context, listen: false).getCarts();
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: Text('Create Order'),
       ),
       body: Padding(
-        padding: EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text('Chọn loại vận chuyển'),
-            SizedBox(height: 8.0),
-            DropdownButtonFormField<String>(
-              value: _selectedShipId,
-              items: [
-                DropdownMenuItem(
-                  value: '6425842eddeca96417cd14cb',
-                  child: Text('Nhanh'),
+          padding: EdgeInsets.all(16.0),
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('Chọn loại vận chuyển'),
+                SizedBox(height: 8.0),
+                DropdownButtonFormField<String>(
+                  value: _selectedShipId,
+                  items: [
+                    DropdownMenuItem(
+                      value: '6425842eddeca96417cd14cb',
+                      child: Text('Nhanh'),
+                    ),
+                    DropdownMenuItem(
+                      value: '64258441ddeca96417cd14cf',
+                      child: Text('Hỏa tốc'),
+                    ),
+                  ],
+                  onChanged: _handleShipIdChange,
                 ),
-                DropdownMenuItem(
-                  value: '64258441ddeca96417cd14cf',
-                  child: Text('Hỏa tốc'),
+                SizedBox(height: 16.0),
+                Text('Địa chỉ'),
+                SizedBox(height: 8.0),
+                TextFormField(
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                  ),
+                  onChanged: _handleLocationChange,
+                ),
+                SizedBox(height: 16.0),
+                Text('Tên người nhận'),
+                SizedBox(height: 8.0),
+                TextFormField(
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                  ),
+                  onChanged: _handleReceiverNameChange,
+                ),
+                SizedBox(height: 16.0),
+                Text('Số điện thoại người nhận'),
+                SizedBox(height: 8.0),
+                TextFormField(
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                  ),
+                  keyboardType: TextInputType.phone,
+                  onChanged: _handleReceiverPhoneChange,
+                ),
+                SizedBox(height: 16.0),
+                Text('Số sản phẩm đặt hàng: ${cartList!.length}'),
+                SizedBox(height: 16.0),
+                Text('Total: ${_total}VND'), // Replace 0 with the actual total
+                SizedBox(height: 16.0),
+                ElevatedButton(
+                  onPressed: _handleOrderButtonPressed,
+                  child: Text('Order'),
                 ),
               ],
-              onChanged: _handleShipIdChange,
             ),
-            SizedBox(height: 16.0),
-            Text('Địa chỉ'),
-            SizedBox(height: 8.0),
-            TextFormField(
-              decoration: InputDecoration(
-                border: OutlineInputBorder(),
-              ),
-              onChanged: _handleLocationChange,
-            ),
-            SizedBox(height: 16.0),
-            Text('Tên người nhận'),
-            SizedBox(height: 8.0),
-            TextFormField(
-              decoration: InputDecoration(
-                border: OutlineInputBorder(),
-              ),
-              onChanged: _handleReceiverNameChange,
-            ),
-            SizedBox(height: 16.0),
-            Text('Số điện thoại người nhận'),
-            SizedBox(height: 8.0),
-            TextFormField(
-              decoration: InputDecoration(
-                border: OutlineInputBorder(),
-              ),
-              keyboardType: TextInputType.phone,
-              onChanged: _handleReceiverPhoneChange,
-            ),
-            SizedBox(height: 16.0),
-            Text('Số sản phẩm đặt hàng: ${cartList!.length}'),
-            SizedBox(height: 16.0),
-            Text('Total: ${_total}VND'), // Replace 0 with the actual total
-            SizedBox(height: 16.0),
-            ElevatedButton(
-              onPressed: _handleOrderButtonPressed,
-              child: Text('Order'),
-            ),
-          ],
-        ),
-      ),
+          )),
     );
   }
 
@@ -154,7 +157,6 @@ class _MyViewState extends State<MyView> {
       "is_fast_buy": false
     });
 
-
     print(body);
     var response = await http.post(Uri.parse(url),
         headers: {
@@ -176,7 +178,7 @@ class _MyViewState extends State<MyView> {
                 onPressed: () {
                   Navigator.pushReplacement(
                     context,
-                    MaterialPageRoute(builder: (context) => HomePage()),
+                    MaterialPageRoute(builder: (context) => CustomerPage()),
                   );
                 },
                 child: Text('OK'),
