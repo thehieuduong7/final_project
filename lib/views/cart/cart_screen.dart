@@ -30,10 +30,10 @@ AppBar buildAppBar(BuildContext context) {
           "Your Cart",
           style: TextStyle(color: Colors.black),
         ),
-        Text(
-          "${demoCarts.length} items",
-          style: Theme.of(context).textTheme.caption,
-        ),
+        // Text(
+        //   "${demoCarts.length} items",
+        //   style: Theme.of(context).textTheme.caption,
+        // ),
       ],
     ),
   );

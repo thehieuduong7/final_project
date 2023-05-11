@@ -7,6 +7,7 @@ import 'package:final_project/models/account_model.dart';
 class AuthProvider extends ChangeNotifier {
   Account? _account;
   String errorMessage = "";
+  User? user;
 
   bool isAuthenticated() => _account != null;
 
@@ -49,6 +50,22 @@ class AuthProvider extends ChangeNotifier {
     } else {
       throw Exception('Failed to load response');
     }
+  }
+
+  Future<void> loadUser() async {
+    final url = Uri.parse('http://10.0.2.2:8080/user/');
+    String token = _account?.token ?? "";
+    final response = await http.get(url, headers: {
+      'Authorization': 'Bearer $token',
+    });
+    if (response.statusCode == 200) {
+      final responseData = json.decode(response.body)['user'];
+      this.user = User.fromJson(responseData);
+    } else {
+      throw Exception('Failed to load response');
+    }
+    // String name = user?.name ?? "none";
+    notifyListeners();
   }
 
   Future<void> signOut() async {
