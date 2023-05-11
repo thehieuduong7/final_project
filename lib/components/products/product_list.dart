@@ -49,8 +49,8 @@ class _ProductListState extends State<ProductList> {
             return GridView.builder(
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
-                crossAxisSpacing: 8.0,
-                mainAxisSpacing: 8.0,
+                crossAxisSpacing: 4.0,
+                mainAxisSpacing: 4.0,
               ),
               itemCount: snapshot.data!.length,
               itemBuilder: (BuildContext context, int index) {
