@@ -1,69 +1,49 @@
 import 'package:final_project/components/products/product_card.dart';
+import 'package:final_project/models/product_model.dart';
 
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
-
-import '../../models/product_model.dart';
 
 class ProductList extends StatefulWidget {
+  List<ProductModel>? products;
   bool isGridView;
-
-  ProductList({Key? key, this.isGridView = true}) : super(key: key);
+  ProductList({Key? key, required this.products, this.isGridView = true})
+      : super(key: key);
 
   @override
   _ProductListState createState() => _ProductListState();
 }
 
 class _ProductListState extends State<ProductList> {
-  late Future<List<ProductModel>> _productsFuture;
-
-  @override
-  void initState() {
-    super.initState();
-    _productsFuture = fetchProducts();
-  }
-
-  Future<List<ProductModel>> fetchProducts() async {
-    final response = await http.get(Uri.parse('http://10.0.2.2:8080/product'));
-    if (response.statusCode == 200) {
-      final jsonList = json.decode(response.body)['product'] as List;
-      return jsonList.map((json) => ProductModel.fromJson(json)).toList();
-    } else {
-      throw Exception('Failed to load products');
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<List<ProductModel>>(
-      future: _productsFuture,
-      builder:
-          (BuildContext context, AsyncSnapshot<List<ProductModel>> snapshot) {
-        if (snapshot.connectionState == ConnectionState.done) {
-          if (snapshot.hasError) {
-            return Center(
-              child: Text('Error: ${snapshot.error}'),
+    if (widget.products == null) {
+      return Center(
+        child: CircularProgressIndicator(),
+      );
+    }
+    if (widget.isGridView) {
+      return LayoutBuilder(builder: (context, constraints) {
+        return GridView.builder(
+          itemCount: widget.products?.length ?? 0,
+          itemBuilder: (context, index) => ProductCard(
+            // itemNo: index,
+            product: widget.products![index],
+          ),
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: constraints.maxWidth > 700 ? 4 : 2,
+            childAspectRatio: 1,
+          ),
+        );
+      });
+    } else {
+      return ListView.builder(
+          itemCount: widget.products?.length ?? 0,
+          itemBuilder: (BuildContext context, int index) {
+            return ProductCard(
+              // itemNo: index,
+              product: widget.products![index],
             );
-          } else {
-            return GridView.builder(
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                crossAxisSpacing: 4.0,
-                mainAxisSpacing: 4.0,
-              ),
-              itemCount: snapshot.data!.length,
-              itemBuilder: (BuildContext context, int index) {
-                return ProductCard(product: snapshot.data![index]);
-              },
-            );
-          }
-        } else {
-          return Center(
-            child: CircularProgressIndicator(),
-          );
-        }
-      },
-    );
+          });
+    }
   }
 }

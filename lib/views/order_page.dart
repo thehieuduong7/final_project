@@ -30,95 +30,103 @@ class _OrderPageState extends State<OrderPage> {
   @override
   Widget build(BuildContext context) {
     Provider.of<AuthProvider>(context, listen: false).loadUser();
+    Provider.of<CartProvider>(context, listen: false).fetchCarts();
+
     _total = Provider.of<CartProvider>(context, listen: false).getTotal();
-    cartList = Provider.of<CartProvider>(context, listen: false).getCarts();
+
+    print("render ${_total}");
+    // cartList = Provider.of<CartProvider>(context, listen: false).getCarts();
+
     return Consumer<AuthProvider>(builder: (context, authData, _) {
       _controllerLocation.text = authData.user?.address ?? "";
       _controllerName.text = authData.user?.name ?? "";
       _controllerPhone.text = authData.user?.phone ?? "";
 
-      return Scaffold(
-        resizeToAvoidBottomInset: false,
-        appBar: AppBar(
-          title: Text('Create Order'),
-        ),
-        body: Padding(
-            padding: EdgeInsets.all(16.0),
-            child: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text('Chọn loại vận chuyển'),
-                  SizedBox(height: 8.0),
-                  DropdownButtonFormField<String>(
-                    value: _selectedShipId,
-                    items: [
-                      DropdownMenuItem(
-                        value: '6425842eddeca96417cd14cb',
-                        child: Text('Nhanh'),
+      return Consumer<CartProvider>(builder: (context, value, child) {
+        cartList = value.carts;
+        return Scaffold(
+          resizeToAvoidBottomInset: false,
+          appBar: AppBar(
+            title: Text('Create Order'),
+          ),
+          body: Padding(
+              padding: EdgeInsets.all(16.0),
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text('Chọn loại vận chuyển'),
+                    SizedBox(height: 8.0),
+                    DropdownButtonFormField<String>(
+                      value: _selectedShipId,
+                      items: [
+                        DropdownMenuItem(
+                          value: '6425842eddeca96417cd14cb',
+                          child: Text('Nhanh'),
+                        ),
+                        DropdownMenuItem(
+                          value: '64258441ddeca96417cd14cf',
+                          child: Text('Hỏa tốc'),
+                        ),
+                      ],
+                      onChanged: _handleShipIdChange,
+                    ),
+                    SizedBox(height: 16.0),
+                    Text('Địa chỉ'),
+                    SizedBox(height: 8.0),
+                    TextFormField(
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(),
                       ),
-                      DropdownMenuItem(
-                        value: '64258441ddeca96417cd14cf',
-                        child: Text('Hỏa tốc'),
+                      controller: _controllerLocation,
+                    ),
+                    SizedBox(height: 16.0),
+                    Text('Tên người nhận'),
+                    SizedBox(height: 8.0),
+                    TextFormField(
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(),
                       ),
-                    ],
-                    onChanged: _handleShipIdChange,
-                  ),
-                  SizedBox(height: 16.0),
-                  Text('Địa chỉ'),
-                  SizedBox(height: 8.0),
-                  TextFormField(
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(),
+                      controller: _controllerName,
                     ),
-                    controller: _controllerLocation,
-                  ),
-                  SizedBox(height: 16.0),
-                  Text('Tên người nhận'),
-                  SizedBox(height: 8.0),
-                  TextFormField(
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(),
+                    SizedBox(height: 16.0),
+                    Text('Số điện thoại người nhận'),
+                    SizedBox(height: 8.0),
+                    TextFormField(
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                      ),
+                      keyboardType: TextInputType.phone,
+                      controller: _controllerPhone,
                     ),
-                    controller: _controllerName,
-                  ),
-                  SizedBox(height: 16.0),
-                  Text('Số điện thoại người nhận'),
-                  SizedBox(height: 8.0),
-                  TextFormField(
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(),
+                    SizedBox(height: 16.0),
+                    // Text('Số sản phẩm đặt hàng: ${cartList?.length}'),
+                    SizedBox(height: 16.0),
+                    Text(
+                        'Total: ${_total}VND'), // Replace 0 with the actual total
+                    SizedBox(height: 16.0),
+                    ElevatedButton(
+                      onPressed: _handleOrderButtonPressed,
+                      child: Text('Order'),
                     ),
-                    keyboardType: TextInputType.phone,
-                    controller: _controllerPhone,
-                  ),
-                  SizedBox(height: 16.0),
-                  // Text('Số sản phẩm đặt hàng: ${cartList?.length}'),
-                  SizedBox(height: 16.0),
-                  Text(
-                      'Total: ${_total}VND'), // Replace 0 with the actual total
-                  SizedBox(height: 16.0),
-                  ElevatedButton(
-                    onPressed: _handleOrderButtonPressed,
-                    child: Text('Order'),
-                  ),
-                ],
-              ),
-            )),
-      );
+                  ],
+                ),
+              )),
+        );
+      });
     });
   }
 
   void _handleShipIdChange(String? value) {
     setState(() {
       _selectedShipId = value;
+      if (_selectedShipId == '6425842eddeca96417cd14cb') {
+        _total = (_total ?? 0) + 15000;
+      } else {
+        _total = (_total ?? 0) + 30000;
+      }
     });
     print("total ${_total}");
-    if (_selectedShipId == '6425842eddeca96417cd14cb') {
-      _total = (_total ?? 0) + 15000;
-    } else {
-      _total = (_total ?? 0) + 30000;
-    }
   }
 
   void _handleOrderButtonPressed() {
