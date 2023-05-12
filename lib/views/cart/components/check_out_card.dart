@@ -94,7 +94,9 @@ class CheckoutCard extends StatelessWidget {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => OrderPage()),
+                                builder: (context) => OrderPage(
+                                      carts: cartData.carts,
+                                    )),
                           );
                         },
                         child: Text(

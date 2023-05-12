@@ -47,7 +47,6 @@ class CartProvider extends ChangeNotifier {
 
   int getTotal() {
     if (carts == null) {
-      print("cart-null");
       return 0;
     }
     int sum = 0;
