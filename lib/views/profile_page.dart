@@ -12,60 +12,86 @@ class ProfilePage extends StatelessWidget {
     AuthProvider authProvider =
         Provider.of<AuthProvider>(context, listen: false);
 
-    return Scaffold(
-      body: Column(
-        children: [
-          const Expanded(flex: 2, child: _TopPortion()),
-          Expanded(
-            flex: 3,
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                children: [
-                  Text(
-                    "Richie Lorie",
-                    style: Theme.of(context)
-                        .textTheme
-                        .headline6
-                        ?.copyWith(fontWeight: FontWeight.bold),
-                  ),
-                  const SizedBox(height: 16),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      FloatingActionButton.extended(
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => OrderStatusListPage()),
-                          );
-                        },
-                        heroTag: 'follow',
-                        elevation: 0,
-                        label: const Text("Follow"),
-                        icon: const Icon(Icons.person_add_alt_1),
+    Provider.of<AuthProvider>(context, listen: false).loadUser();
+    return Consumer<AuthProvider>(builder: (context, authData, _) {
+      return Scaffold(
+        body: Column(
+          children: [
+            const Expanded(flex: 2, child: _TopPortion()),
+            Expanded(
+              flex: 3,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  children: [
+                    Text(
+                      authData.user?.name ?? "",
+                      style: Theme.of(context)
+                          .textTheme
+                          .headline6
+                          ?.copyWith(fontWeight: FontWeight.bold),
+                    ),
+                    const SizedBox(height: 16),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        FloatingActionButton.extended(
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => OrderStatusListPage()),
+                            );
+                          },
+                          heroTag: 'orders',
+                          elevation: 0,
+                          label: const Text("Orders"),
+                          icon: const Icon(Icons.ac_unit_outlined),
+                        ),
+                        const SizedBox(width: 16.0),
+                        FloatingActionButton.extended(
+                          onPressed: () {
+                            authProvider.signOut();
+                          },
+                          backgroundColor: Colors.red,
+                          label: const Text("Logout"),
+                          icon: const Icon(
+                              IconData(0xe3b3, fontFamily: 'MaterialIcons')),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 16),
+                    Card(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Phone: ' + (authData.user?.phone ?? ""),
+                            style: Theme.of(context)
+                                .textTheme
+                                .headline6
+                                ?.copyWith(fontWeight: FontWeight.bold),
+                          ),
+                          Text(
+                            'Address: ' + (authData.user?.address ?? ""),
+                            style: Theme.of(context)
+                                .textTheme
+                                .headline6
+                                ?.copyWith(fontWeight: FontWeight.bold),
+                          ),
+                          const SizedBox(height: 16),
+                        ],
                       ),
-                      const SizedBox(width: 16.0),
-                      FloatingActionButton.extended(
-                        onPressed: () {
-                          authProvider.signOut();
-                        },
-                        backgroundColor: Colors.red,
-                        label: const Text("Logout"),
-                        icon: const Icon(
-                            IconData(0xe3b3, fontFamily: 'MaterialIcons')),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 16),
-                  const _ProfileInfoRow()
-                ],
+                    )
+                    // const _ProfileInfoRow()
+                  ],
+                ),
               ),
             ),
-          ),
-        ],
-      ),
-    );
+          ],
+        ),
+      );
+    });
   }
 }
 
@@ -122,6 +148,7 @@ class _ProfileInfoRow extends StatelessWidget {
 class ProfileInfoItem {
   final String title;
   final int value;
+
   const ProfileInfoItem(this.title, this.value);
 }
 
