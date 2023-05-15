@@ -1,3 +1,4 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:final_project/components/layouts/app_theme.dart';
 import 'package:final_project/components/products/count_controller.dart';
 import 'package:final_project/models/account_model.dart';
@@ -86,18 +87,41 @@ class _ProductDetailPageState extends State<ProductDetailPage>
                 children: [
                   Padding(
                     padding: EdgeInsetsDirectional.fromSTEB(16, 16, 16, 16),
-                    child: Hero(
-                      tag: 'mainImage',
-                      transitionOnUserGestures: true,
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(12),
-                        child: Image.network(
-                          widget.product.product_image![0],
-                          width: double.infinity,
-                          height: 300,
-                          fit: BoxFit.cover,
-                        ),
+                    // child: Hero(
+                    //   tag: 'mainImage',
+                    //   transitionOnUserGestures: true,
+                    //   child: ClipRRect(
+                    //     borderRadius: BorderRadius.circular(12),
+                    //     child: Image.network(
+                    //       widget.product.product_image![0],
+                    //       width: double.infinity,
+                    //       height: 300,
+                    //       fit: BoxFit.cover,
+                    //     ),
+                    //   ),
+                    // ),
+                    child: CarouselSlider(
+                      options: CarouselOptions(
+                        height: 200, // Set the desired height of the carousel
+                        autoPlay: true, // Enable auto-play
+                        aspectRatio:
+                            16 / 9, // Set the aspect ratio of the images
+                        enlargeCenterPage:
+                            true, // Enable center image enlargement
+                        enableInfiniteScroll: true, // Enable infinite scrolling
                       ),
+                      items: widget.product.product_image?.map((imageUrl) {
+                        return Builder(
+                          builder: (BuildContext context) {
+                            return Image.network(
+                              imageUrl,
+                              fit: BoxFit.cover,
+                              height: 300,
+                              width: double.infinity,
+                            );
+                          },
+                        );
+                      }).toList(),
                     ),
                   ),
                   Padding(
