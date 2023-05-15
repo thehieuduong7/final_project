@@ -1,3 +1,4 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:final_project/components/layouts/app_theme.dart';
 import 'package:final_project/components/products/count_controller.dart';
 import 'package:final_project/models/account_model.dart';
@@ -24,6 +25,15 @@ class _ProductDetailPageState extends State<ProductDetailPage>
   int? countControllerValue;
   String? selectedValue = '36';
 
+  Map<String, dynamic> COLORS = {
+    "Nâu": Colors.brown,
+    "Xám": Colors.grey,
+    "Hồng": Colors.pink,
+    "Trắng": Colors.white,
+    "Đen": Colors.black,
+    "Xanh": Colors.blue,
+    "Đỏ": Colors.red,
+  };
   @override
   void initState() {
     super.initState();
@@ -86,18 +96,41 @@ class _ProductDetailPageState extends State<ProductDetailPage>
                 children: [
                   Padding(
                     padding: EdgeInsetsDirectional.fromSTEB(16, 16, 16, 16),
-                    child: Hero(
-                      tag: 'mainImage',
-                      transitionOnUserGestures: true,
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(12),
-                        child: Image.network(
-                          widget.product.product_image![0],
-                          width: double.infinity,
-                          height: 300,
-                          fit: BoxFit.cover,
-                        ),
+                    // child: Hero(
+                    //   tag: 'mainImage',
+                    //   transitionOnUserGestures: true,
+                    //   child: ClipRRect(
+                    //     borderRadius: BorderRadius.circular(12),
+                    //     child: Image.network(
+                    //       widget.product.product_image![0],
+                    //       width: double.infinity,
+                    //       height: 300,
+                    //       fit: BoxFit.cover,
+                    //     ),
+                    //   ),
+                    // ),
+                    child: CarouselSlider(
+                      options: CarouselOptions(
+                        height: 200, // Set the desired height of the carousel
+                        autoPlay: true, // Enable auto-play
+                        aspectRatio:
+                            16 / 9, // Set the aspect ratio of the images
+                        enlargeCenterPage:
+                            true, // Enable center image enlargement
+                        enableInfiniteScroll: true, // Enable infinite scrolling
                       ),
+                      items: widget.product.product_image?.map((imageUrl) {
+                        return Builder(
+                          builder: (BuildContext context) {
+                            return Image.network(
+                              imageUrl,
+                              fit: BoxFit.cover,
+                              height: 300,
+                              width: double.infinity,
+                            );
+                          },
+                        );
+                      }).toList(),
                     ),
                   ),
                   Padding(
@@ -130,12 +163,29 @@ class _ProductDetailPageState extends State<ProductDetailPage>
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(16, 8, 16, 8),
-                    child: Text(
-                      'Màu sắc: ${widget.product.color}',
-                      style: AppTheme.of(context).bodyText2,
-                    ),
-                  ),
+                      padding: EdgeInsetsDirectional.fromSTEB(16, 8, 16, 8),
+                      child: Row(
+                        children: [
+                          Text(
+                            'Màu sắc: ${widget.product.color}',
+                            style: AppTheme.of(context).bodyText2,
+                          ),
+                          SizedBox(width: 5),
+                          Center(
+                              child: Container(
+                            width: 20,
+                            height: 20,
+                            // decoration: BoxDecoration(
+                            //   border: Border.all(
+                            //     color: Colors.black,
+                            //     width: 2.0,
+                            //   ),
+                            // ),
+                            color: COLORS[widget.product.color] ??
+                                Colors.white, // Replace with your desired color
+                          )),
+                        ],
+                      )),
                   Padding(
                     padding: EdgeInsetsDirectional.fromSTEB(16, 8, 16, 8),
                     child: Text(

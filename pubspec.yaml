@@ -45,6 +45,7 @@ dependencies:
   build_runner: ^2.1.4
   json_annotation: ^4.8.0
   # flutter_secure_storage: ^8.0.0
+  carousel_slider: ^4.0.0
 
 
 
