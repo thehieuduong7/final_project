@@ -8,9 +8,16 @@ import '../models/product_model.dart';
 class ProductProvider extends ChangeNotifier {
   List<ProductModel>? products;
   List<ProductModel>? filterProducts;
-  List<int> genderFilter = [];
   String nameFilter = '';
-  List<CategoryFilter> filters = [];
+  List<CategoryFilter> filters = [
+    CategoryFilter(
+        "Gender", [Option("Male", 1, false), Option("Female", 0, false)]),
+    CategoryFilter("Category", [
+      Option("NIKE", "NIKE", false),
+      Option("ADIDAS", "ADIDAS", false),
+      Option("Vans", "Vans", false),
+    ])
+  ];
 
   Future<void> fetchProducts() async {
     final response = await http.get(Uri.parse('http://10.0.2.2:8080/product'));
@@ -27,6 +34,7 @@ class ProductProvider extends ChangeNotifier {
   void handleFilter() {
     filterProducts = filterName(products);
     filterProducts = filterGender(filterProducts);
+    filterProducts = filterCategory(filterProducts);
     notifyListeners();
   }
 
@@ -42,20 +50,37 @@ class ProductProvider extends ChangeNotifier {
   }
 
   List<ProductModel>? filterGender(List<ProductModel>? products) {
-    if (genderFilter.isEmpty) {
+    CategoryFilter? filter = filters[0];
+    List<int> filterList = filter.options
+        .where((element) => element.isChecked == true)
+        .map((e) => e.value as int)
+        .toList();
+    if (filterList.isEmpty) {
       return products;
     } else {
       return products!
-          .where((item) => genderFilter.contains(item.gender))
+          .where((item) => filterList.contains(item.gender))
+          .toList();
+    }
+  }
+
+  List<ProductModel>? filterCategory(List<ProductModel>? products) {
+    CategoryFilter? filter = filters[1];
+    List<String> filterList = filter.options
+        .where((element) => element.isChecked == true)
+        .map((e) => e.value as String)
+        .toList();
+    if (filterList.isEmpty) {
+      return products;
+    } else {
+      return products!
+          .where((item) => filterList.contains(item.brand))
           .toList();
     }
   }
 
   void loadFilter() {
-    filters = [
-      CategoryFilter("Gender",
-          [Option("Male", "Male", false), Option("Female", "Female", false)])
-    ];
+    notifyListeners();
   }
 }
 
@@ -76,8 +101,8 @@ class CategoryFilter {
 }
 
 class Option {
-  String label;
-  String value;
+  dynamic label;
+  dynamic value;
   bool isChecked;
   Option(this.label, this.value, this.isChecked);
   Widget toWidget() {

@@ -92,13 +92,12 @@ class NavProductList extends StatefulWidget {
 class _NavProductListState extends State<NavProductList> {
   @override
   Widget build(BuildContext context) {
-    Provider.of<ProductProvider>(context, listen: false).loadFilter();
-
+    // Provider.of<ProductProvider>(context, listen: false).loadFilter();
     return Drawer(
       child: ListView(
         children: <Widget>[
           ExpansionpanelFilter(
-            steps: convertToStep(widget.filters.map((e) => e.toMap()).toList()),
+            filters: widget.filters,
           )
         ],
       ),
