@@ -25,6 +25,15 @@ class _ProductDetailPageState extends State<ProductDetailPage>
   int? countControllerValue;
   String? selectedValue = '36';
 
+  Map<String, dynamic> COLORS = {
+    "Nâu": Colors.brown,
+    "Xám": Colors.grey,
+    "Hồng": Colors.pink,
+    "Trắng": Colors.white,
+    "Đen": Colors.black,
+    "Xanh": Colors.blue,
+    "Đỏ": Colors.red,
+  };
   @override
   void initState() {
     super.initState();
@@ -154,12 +163,29 @@ class _ProductDetailPageState extends State<ProductDetailPage>
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(16, 8, 16, 8),
-                    child: Text(
-                      'Màu sắc: ${widget.product.color}',
-                      style: AppTheme.of(context).bodyText2,
-                    ),
-                  ),
+                      padding: EdgeInsetsDirectional.fromSTEB(16, 8, 16, 8),
+                      child: Row(
+                        children: [
+                          Text(
+                            'Màu sắc: ${widget.product.color}',
+                            style: AppTheme.of(context).bodyText2,
+                          ),
+                          SizedBox(width: 5),
+                          Center(
+                              child: Container(
+                            width: 20,
+                            height: 20,
+                            // decoration: BoxDecoration(
+                            //   border: Border.all(
+                            //     color: Colors.black,
+                            //     width: 2.0,
+                            //   ),
+                            // ),
+                            color: COLORS[widget.product.color] ??
+                                Colors.white, // Replace with your desired color
+                          )),
+                        ],
+                      )),
                   Padding(
                     padding: EdgeInsetsDirectional.fromSTEB(16, 8, 16, 8),
                     child: Text(
