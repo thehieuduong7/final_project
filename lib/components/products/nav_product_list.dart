@@ -1,5 +1,7 @@
 import 'package:final_project/components/products/expansionpanel_filter.dart';
+import 'package:final_project/provider/product_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 var optionFilter = [
   {
@@ -9,12 +11,12 @@ var optionFilter = [
             shrinkWrap: true,
             children: ["Male", "Female"]
                 .map((e) => ListTile(
-              title: Text(e),
-              trailing: Switch(
-                value: true,
-                onChanged: (value) {},
-              ),
-            ))
+                      title: Text(e),
+                      trailing: Switch(
+                        value: true,
+                        onChanged: (value) {},
+                      ),
+                    ))
                 .toList())),
   },
   {
@@ -54,12 +56,12 @@ var optionFilter = [
             shrinkWrap: true,
             children: ["Red", "Blue", "Black", "White", "Yellow", "Gray"]
                 .map((e) => ListTile(
-              title: Text(e),
-              trailing: Switch(
-                value: true,
-                onChanged: (value) {},
-              ),
-            ))
+                      title: Text(e),
+                      trailing: Switch(
+                        value: true,
+                        onChanged: (value) {},
+                      ),
+                    ))
                 .toList())),
   },
   {
@@ -69,18 +71,19 @@ var optionFilter = [
             shrinkWrap: true,
             children: ["38", "39", "40", "41", "42", "43"]
                 .map((e) => ListTile(
-              title: Text(e),
-              trailing: Switch(
-                value: true,
-                onChanged: (value) {},
-              ),
-            ))
+                      title: Text(e),
+                      trailing: Switch(
+                        value: true,
+                        onChanged: (value) {},
+                      ),
+                    ))
                 .toList())),
   }
 ];
 
 class NavProductList extends StatefulWidget {
-  const NavProductList({Key? key}) : super(key: key);
+  List<CategoryFilter> filters;
+  NavProductList({Key? key, required this.filters}) : super(key: key);
 
   @override
   _NavProductListState createState() => _NavProductListState();
@@ -89,11 +92,13 @@ class NavProductList extends StatefulWidget {
 class _NavProductListState extends State<NavProductList> {
   @override
   Widget build(BuildContext context) {
+    Provider.of<ProductProvider>(context, listen: false).loadFilter();
+
     return Drawer(
       child: ListView(
         children: <Widget>[
           ExpansionpanelFilter(
-            steps: convertToStep(optionFilter),
+            steps: convertToStep(widget.filters.map((e) => e.toMap()).toList()),
           )
         ],
       ),

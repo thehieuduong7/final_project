@@ -8,8 +8,7 @@ class Step {
 }
 
 List<Step> convertToStep(List<Map<String, dynamic>> list) {
-  print(list.map((e) => Step(Text(e["tilte"]), e["body"])).toList());
-  return list.map((e) => Step(Text(e["tilte"]), e["body"])).toList();
+  return list.map((e) => Step(Text(e["title"]), e["body"])).toList();
 }
 
 class ExpansionpanelFilter extends StatefulWidget {

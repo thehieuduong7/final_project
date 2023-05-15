@@ -40,7 +40,9 @@ class _ProductPageState extends State<ProductPage> {
       return Scaffold(
         key: scaffoldKey,
         backgroundColor: Colors.white,
-        drawer: const NavProductList(),
+        drawer: NavProductList(
+          filters: productData.filters,
+        ),
         appBar: AppBar(
           iconTheme: IconThemeData(color: Colors.black),
           title: Text(
@@ -107,21 +109,27 @@ class _ProductPageState extends State<ProductPage> {
                               'tFMemberController',
                               Duration(milliseconds: 0),
                               () {
-                                isSearchStarted =
-                                    textController!.text.isNotEmpty &&
-                                        textController!.text.trim().length > 0;
-                                print('isSearchStarted $isSearchStarted');
-                                if (isSearchStarted) {
-                                  print('${textController!.text.trim()}');
-                                  searchedProducts = productData.products!
-                                      .where((item) => item.name
-                                          .toLowerCase()
-                                          .contains(textController!.text
-                                              .trim()
-                                              .toLowerCase()))
-                                      .toList();
-                                }
-                                setState(() {});
+                                // isSearchStarted =
+                                //     textController!.text.isNotEmpty &&
+                                //         textController!.text.trim().length > 0;
+                                // print('isSearchStarted $isSearchStarted');
+                                // if (isSearchStarted) {
+                                //   print('${textController!.text.trim()}');
+                                //   searchedProducts = productData.products!
+                                //       .where((item) => item.name
+                                //           .toLowerCase()
+                                //           .contains(textController!.text
+                                //               .trim()
+                                //               .toLowerCase()))
+                                //       .toList();
+                                // }
+                                // setState(() {});
+                                // Provider.of<ProductProvider>(context,
+                                //         listen: false)
+                                productData.nameFilter = textController!.text;
+                                Provider.of<ProductProvider>(context,
+                                        listen: false)
+                                    .handleFilter();
                               },
                             ),
                             decoration: InputDecoration(
@@ -177,10 +185,7 @@ class _ProductPageState extends State<ProductPage> {
             ),
             Expanded(
               child: ProductList(
-                isGridView: isGridView,
-                products:
-                    isSearchStarted ? searchedProducts : productData.products,
-              ),
+                  isGridView: isGridView, products: productData.filterProducts),
             ),
           ],
         ),
