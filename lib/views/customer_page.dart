@@ -1,5 +1,7 @@
+import 'package:final_project/provider/page_provider.dart';
 import 'package:final_project/views/cart/cart_screen.dart';
 import 'package:final_project/views/home/home_screen.dart';
+import 'package:provider/provider.dart';
 
 import 'cart_page.dart';
 import 'profile_page.dart';
@@ -15,25 +17,25 @@ class CustomerPage extends StatefulWidget {
 }
 
 class _CustomerPageState extends State<CustomerPage> {
-  int _selectedIndex = 0;
-
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: mapToPage[_navBarItems[_selectedIndex].label],
-      ),
-      bottomNavigationBar: NavigationBar(
-        animationDuration: const Duration(seconds: 1),
-        selectedIndex: _selectedIndex,
-        onDestinationSelected: (index) {
-          setState(() {
-            _selectedIndex = index;
-          });
-        },
-        destinations: _navBarItems,
-      ),
-    );
+    return Consumer<PageProvider>(builder: (context, pageData, _) {
+      return Scaffold(
+        body: Center(
+          child: mapToPage[_navBarItems[pageData.index].label],
+        ),
+        bottomNavigationBar: NavigationBar(
+          animationDuration: const Duration(seconds: 1),
+          selectedIndex: pageData.index,
+          onDestinationSelected: (index) {
+            setState(() {
+              pageData.index = index;
+            });
+          },
+          destinations: _navBarItems,
+        ),
+      );
+    });
   }
 }
 

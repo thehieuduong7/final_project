@@ -48,6 +48,8 @@ import 'package:final_project/provider/product_provider.dart';
 class PopularProducts extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    Provider.of<ProductProvider>(context, listen: false).resetFilter();
+
     Provider.of<ProductProvider>(context, listen: false).fetchProducts();
 
     return Consumer<ProductProvider>(builder: (context, productData, _) {

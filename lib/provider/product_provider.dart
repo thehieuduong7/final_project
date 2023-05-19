@@ -19,16 +19,33 @@ class ProductProvider extends ChangeNotifier {
     ])
   ];
 
+  void setFilterCategory(String value) {
+    CategoryFilter filter = filters[1];
+    filter.options = filter.options.map((e) {
+      e.isChecked = e.value == value;
+      return e;
+    }).toList();
+  }
+
+  void resetFilter() {
+    filters.forEach((element) {
+      element.options.forEach((e) {
+        e.isChecked = false;
+      });
+    });
+  }
+
   Future<void> fetchProducts() async {
     final response = await http.get(Uri.parse('http://10.0.2.2:8080/product'));
     if (response.statusCode == 200) {
       final jsonList = json.decode(response.body)['product'] as List;
       products = jsonList.map((json) => ProductModel.fromJson(json)).toList();
       filterProducts = products;
+      handleFilter();
     } else {
       throw Exception('Failed to load products');
     }
-    notifyListeners();
+    // notifyListeners();
   }
 
   void handleFilter() {

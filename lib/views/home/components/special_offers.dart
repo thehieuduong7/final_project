@@ -1,6 +1,9 @@
 import 'package:final_project/models/brand.dart';
+import 'package:final_project/provider/page_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
+import '../../../provider/product_provider.dart';
 import '../../../size_config.dart';
 import 'section_title.dart';
 
@@ -11,34 +14,42 @@ class SpecialOffers extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<Brand> brands = [
-      Brand(name: "Adidas"),
-      Brand(name: "NIKE"),
-      Brand(name: "Vans"),
+    List<Option> brands = [
+      // Brand(name: "Adidas"),
+      // Brand(name: "NIKE"),
+      // Brand(name: "Vans"),
     ];
-    return Column(
-      children: [
-        Padding(
-          padding:
-              EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
-          child: SectionTitle(
-            title: "Special for you",
-            press: () {},
+    return Consumer<ProductProvider>(builder: (context, productData, _) {
+      brands = productData.filters[1].options;
+      return Column(
+        children: [
+          Padding(
+            padding: EdgeInsets.symmetric(
+                horizontal: getProportionateScreenWidth(20)),
+            child: SectionTitle(
+              title: "Special for you",
+              press: () {},
+            ),
           ),
-        ),
-        SizedBox(height: getProportionateScreenWidth(20)),
-        SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: Row(
-              children: brands
-                  .map((e) => SpecialOfferCard(
-                      category: e.name,
-                      image: "assets/images/Image Banner 2.png",
-                      press: () => {}))
-                  .toList()),
-        ),
-      ],
-    );
+          SizedBox(height: getProportionateScreenWidth(20)),
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+                children: brands
+                    .map((e) => SpecialOfferCard(
+                        category: e.label,
+                        image: "assets/images/Image Banner 2.png",
+                        press: () {
+                          Provider.of<ProductProvider>(context, listen: false)
+                              .setFilterCategory(e.value);
+                          Provider.of<PageProvider>(context, listen: false)
+                              .setIndex(1);
+                        }))
+                    .toList()),
+          ),
+        ],
+      );
+    });
   }
 }
 
